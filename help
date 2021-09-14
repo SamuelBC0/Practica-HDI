@@ -1,0 +1,5 @@
+def credenciales():
+    usuario= "admin"
+    nombre= "serenity"
+    
+    return usuario,nombre
