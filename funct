@@ -1,0 +1,97 @@
+from help import credenciales
+usuario,clave=credenciales()
+
+driver = webdriver.Chrome(executable_path=r"D:/Descargas\chromedriver.exe")
+Ruta    = 'https://serenity.is/demo/'
+driver.get(Ruta)
+
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Membership_LoginPanel0_Username"]').send_keys(usuario)
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Membership_LoginPanel0_Password"]').send_keys(clave)
+
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Membership_LoginPanel0_LoginButton"]').click()
+
+# Into the web server, we follow de instructions
+#Click on Organization
+time.sleep(3)
+driver.find_element(By.XPATH,'//*[@id="SidebarMenu"]/li[6]/a').click()
+
+time.sleep(1)
+#Click on Business units
+driver.find_element(By.XPATH,'//*[@id="SidebarMenu"]/li[6]/ul/li[1]/a').click()
+
+#Click on New Business unit
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="GridDiv"]/div[2]/div[2]/div/div/div[1]/div/span').click()
+
+#Name New Business unit
+bu="Test-Meeting"
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_BusinessUnitDialog7_Name"]').send_keys(bu)
+
+#Save unit
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_BusinessUnitDialog7_Toolbar"]/div/div/div/div[1]/div/span').click()
+
+
+#Click on Meeting
+driver.find_element(By.XPATH,'//*[@id="SidebarMenu"]/li[5]/a').click()
+time.sleep(1)
+
+#Click on Meetings
+driver.find_element(By.XPATH,'//*[@id="SidebarMenu"]/li[5]/ul/li[1]/a').click()
+
+
+#Click on New Meetings
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="GridDiv"]/div[2]/div[2]/div/div/div[1]').click()
+
+#Meeting Name
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_MeetingName"]').send_keys(bu+" 1")
+
+#Meeting type
+driver.find_element(By.XPATH,'//*[@id="s2id_StartSharp_Meeting_MeetingDialog14_MeetingTypeId"]/a/span[2]/b').click()
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="s2id_autogen6_search"]').send_keys('GENERAL', Keys.ENTER)
+
+
+#Meeting Number
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_MeetingNumber"]').send_keys("266")
+
+#Start Date
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_StartDate"]').clear()
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_StartDate"]').send_keys("09/15/2021")
+
+select = Select(driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_PropertyGrid"]/div/div/div[4]/select'))
+select.select_by_value('06:00')
+
+
+#End Date
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_EndDate"]').clear()
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_EndDate"]').send_keys("09/15/2021")
+
+select = Select(driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_PropertyGrid"]/div/div/div[5]/select'))
+select.select_by_value('08:00')
+
+#Location
+
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_PropertyGrid"]/div/div/div[6]/a/b').click()
+time.sleep(2)
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingLocationDialog37_Name"]').send_keys("Medellin")
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingLocationDialog37_Toolbar"]/div/div/div/div[1]').click()
+
+
+#Organized By
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_PropertyGrid"]/div/div/div[8]/a/b').click()
+time.sleep(1)
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_ContactDialog44_FirstName"]').send_keys("Samuel")
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_ContactDialog44_LastName"]').send_keys("Bustamante")
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_ContactDialog44_Email"]').send_keys("samuelbust97")
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_ContactDialog44_PropertyGrid"]/div/div/div[4]/input[2]').send_keys("gmail.com")
+
+
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Organization_ContactDialog44_Toolbar"]/div/div/div/div[1]').click()
+
+#Unit
+driver.find_element(By.XPATH,'//*[@id="s2id_StartSharp_Meeting_MeetingDialog14_UnitId"]/a/span[2]/b').click()
+driver.find_element(By.XPATH,'//*[@id="s2id_autogen8_search"]').send_keys(bu, Keys.ENTER)
+
+#Save Meeting
+driver.find_element(By.XPATH,'//*[@id="StartSharp_Meeting_MeetingDialog14_Toolbar"]/div/div/div/div[1]').click()
